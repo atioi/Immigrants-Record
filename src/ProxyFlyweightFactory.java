@@ -17,16 +17,20 @@ public class ProxyFlyweightFactory implements IFlyweightFactory {
         return string.substring(0, 1).toUpperCase() + string.substring(1).toLowerCase();
     }
 
-    public String prepareKeys(String keys) {
-        return Arrays.stream(keys.split("\s"))
+    public String unifyFullName(String fullName) {
+        return Arrays.stream(fullName.split("\s"))
                 .map(ProxyFlyweightFactory::capitalize)
                 .collect(Collectors.joining("\s"));
     }
-
+    
     @Override
     public Flyweight get(String keys) {
-        return flyweightFactory.get(prepareKeys(keys));
-    }
+        String[] split = keys.split(";");
+        String fullName = split[0];
+        String localization = split[1];
 
+        return flyweightFactory.get(unifyFullName(fullName) + " " + localization);
+
+    }
 }
 

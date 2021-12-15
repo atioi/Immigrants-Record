@@ -20,14 +20,17 @@ public class FlyweightFactory implements IFlyweightFactory {
     }
 
     /**
-     * In this case our keys are parts of someone's full name.
+     * In this case our fullName are parts of someone's full name.
      */
     @Override
     public Flyweight get(String keys) {
         String[] splitKeys = splitKeys(keys);
         Flyweight flyweight = findOrCreate(flyweights, splitKeys[0]);
+
         if (splitKeys.length > 1)
             return flyweight.get(splitKeys[1]);
+
+
         return flyweight;
     }
 }
